@@ -1,0 +1,39 @@
+/* * {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: rgb(35, 120, 45);
+}
+.header {
+  width: 80%;
+  height: 100px;
+  margin: 0 auto;
+  border: solid red;
+  text-align: center;
+}
+.header h1,
+h2 {
+  color: aliceblue;
+}
+.litters {
+  width: 80%;
+  height: 100px;
+  margin: 0 auto;
+  border: solid red;
+}
+button {
+  width: 50px;
+  height: 40px;
+  border-radius: 8px;
+} */
+button {
+  font-size: 20px;
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+p {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
