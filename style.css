@@ -26,7 +26,7 @@ button {
   width: 50px;
   height: 40px;
   border-radius: 8px;
-} */
+}
 button {
   font-size: 20px;
   margin: 5px;
@@ -36,4 +36,49 @@ button {
 p {
   font-size: 20px;
   margin-bottom: 10px;
+} */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgb(77, 118, 17);
+}
+
+h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.game {
+  margin: 50px auto;
+  width: 500px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.word {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.attempts {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.letters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.letter {
+  margin: 10px;
+  padding: 10px;
+  font-size: 20px;
+  background-color: #ccc;
+  border-radius: 5px;
+  cursor: pointer;
 }

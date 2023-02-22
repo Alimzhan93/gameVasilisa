@@ -1,125 +1,79 @@
-// let words = [
-//   "программа",
-//   "катастофа",
-//   "макака",
-//   "прекрасный",
-//   "динозавр",
-//   "компьютер",
-//   "оладушек",
-//   "индекс",
-//   "школа",
-//   "интроверт",
-//   "вертолёт",
-//   "институт",
-//   "природа",
-//   "алфавит",
-//   "мумия",
-//   "почемучка",
-//   "верба",
-//   "гомодрил",
-//   "куратор",
-//   "поле",
-//   "исполнитель",
-//   "закзчик",
-//   "альтернатива",
-//   "кавычки",
-//   "строка",
-//   "ноль",
-//   "животноводство",
-//   "абсолютный",
-// ];
-// let word = words[Math.floor(Math.random() * words.length)];
-
-// let answerArray = [];
-// for (let i = 0; i < word.length; i++) {
-//   answerArray[i] = "_";
-// }
-
-// let remainingLetters = word.length;
-// let motion = 6; // или motion =word.length + 6;
-// let isHit = false;
-// while (remainingLetters > 0 && motion > 0) {
-//   alert(answerArray.join(" "));
-//   let guess = prompt("Угадайте букву или нажмите Отмена для выхода из игры");
-//   guess = guess.toLowerCase();
-//   if (guess === null) {
-//     break;
-//   } else if (guess.length !== 1) {
-//     alert("Пожалуйста, введите только одну букву");
-//   } else {
-//     isHit = false; // Вот здесь обнулить нужно было
-//     //Обновляем состояние игры
-//     for (let j = 0; j < word.length; j++) {
-//       let letterWasEntered = answerArray[j] === guess;
-//       if (letterWasEntered) {
-//         alert("Вы уже вводили эту букву");
-//         break;
-//       }
-//       if (word[j] === guess) {
-//         answerArray[j] = guess;
-//         remainingLetters--;
-//         isHit = true;
-//       }
-//     }
-//     if (!isHit) {
-//       motion--;
-//       alert("У Вас осталось " + motion + " попыток");
-//       if (motion === 0) {
-//         alert("Ваши попытки закончились");
-//         break;
-//       }
-//     }
-//   }
-// }
-
-// alert(answerArray.join(" "));
-// alert("Было загадано слово " + word);
-// 1;
-const wordList = [
-  "javascript",
-  "python",
-  "ruby",
-  "java",
-  "html",
-  "css",
-  "php",
-  "kotlin",
-  "swift",
-  "csharp",
+const words = [
+  "apple",
+  "banana",
+  "cherry",
+  "date",
+  "elderberry",
+  "fig",
+  "grape",
 ];
-const chosenWord = wordList[Math.floor(Math.random() * wordList.length)];
-let tries = 6;
-const display = [];
-for (let i = 0; i < chosenWord.length; i++) {
-  display.push("_");
-}
 
-const displayElement = document.getElementById("display");
-const triesElement = document.getElementById("tries");
-const buttons = document.querySelectorAll(".letter");
+// количество попыток
+const maxAttempts = 6;
+let attemptsLeft = maxAttempts;
+// список угаданных букв
+const guessedLetters = [];
 
-function updateDisplay() {
-  displayElement.textContent = display.join(" ");
-}
+// выбираем случайное слово из списка
+const word = words[Math.floor(Math.random() * words.length)];
+// элементы HTML
+const wordElement = document.querySelector(".word");
+const attemptsElement = document.querySelector(".attempts");
+const lettersElement = document.querySelector(".letters");
 
-function updateTries() {
-  triesElement.textContent = tries;
-}
+// функция для проверки угаданной буквы
+function checkLetter(letter) {
+  if (guessedLetters.includes(letter)) {
+    return; // буква уже была угадана
+  }
+  guessedLetters.push(letter);
 
-function guessLetter(letter) {
-  if (tries > 0 && display.includes("_")) {
-    if (chosenWord.includes(letter)) {
-      for (let i = 0; i < chosenWord.length; i++) {
-        if (chosenWord[i] === letter) {
-          display[i] = letter;
-        }
-      }
-      updateDisplay();
-      console.log("Угадано!");
-    } else {
-      tries--;
-      updateTries();
-      console.log("не угадано!");
-    }
+  if (!word.includes(letter)) {
+    attemptsLeft--;
+    attemptsElement.textContent = attemptsLeft;
+  }
+
+  updateWord();
+
+  if (attemptsLeft === 0) {
+    endGame(`Sorry, you lost! The word was "${word}".`);
+  } else if (wordElement.textContent === word) {
+    endGame("Congratulations, you won!");
   }
 }
+// функция для обновления слова с угаданны
+// функция для обновления слова с угаданными буквами
+function updateWord() {
+  const wordArray = word
+    .split("")
+    .map((letter) =>
+      guessedLetters.includes(letter) ? `<span>${letter}</span>` : "_"
+    );
+  wordElement.innerHTML = wordArray.join(" ");
+}
+
+// функция для завершения игры
+function endGame(message) {
+  alert(message);
+  // обновляем страницу
+  location.reload();
+}
+
+// создаем кнопки для каждой буквы алфавита
+for (let i = 65; i <= 90; i++) {
+  const letter = String.fromCharCode(i);
+  const letterElement = document.createElement("div");
+  letterElement.textContent = letter;
+  letterElement.classList.add("letter");
+  letterElement.addEventListener("click", () => {
+    checkLetter(letter.toLowerCase());
+    letterElement.classList.add("disabled");
+    letterElement.removeEventListener("click", arguments.callee);
+  });
+  lettersElement.appendChild(letterElement);
+}
+// обновляем количество попыток
+attemptsElement.textContent = attemptsLeft;
+
+// обновляем слово с угаданными буквами
+updateWord();
