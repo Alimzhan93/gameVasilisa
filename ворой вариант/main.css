@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+#letters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#letters button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 24px;
+  border-radius: 5px;
+}
+
+#guesses {
+  margin-top: 20px;
+  font-size: 36px;
+}
